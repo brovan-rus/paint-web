@@ -1,7 +1,8 @@
 .canvas {
     width: 700px;
     height: 700px;
-    border: 1px solid red;
+
+    border: 1px solid #aa4a44;
 }
 
 .noCursor {
