@@ -6,11 +6,13 @@ import styles from './App.module.css'
 function App() {
   return (
       <DrawContextProvider>
-          <h1>Draw on canvas</h1>
-          <div className={styles.drawingSection}>
-              <DrawingPanel/>
-              <DrawingControl />
+          <div className={styles.container}>
+              <div className={styles.drawingSection}>
+                  <DrawingControl />
+                  <DrawingPanel/>
+              </div>
           </div>
+
       </DrawContextProvider>
   );
 }
