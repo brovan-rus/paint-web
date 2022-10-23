@@ -23,14 +23,8 @@ const Canvas = (props: CanvasProps) => {
         setMousePosition(getCoordinates(e, canvasRef));
     }, [canvasRef]);
 
-    useEffect(() => {
-        if (mouseOver) {
-
-        }
-    }, [mouseOver])
-
     const onMouseOver = useCallback(() => setMouseOver(true), [setMouseOver]);
-    const onMouseLeave = useCallback(() => setMouseOver(false), [setMouseOver]);
+    const onMouseLeave = useCallback(() =>  setMouseOver(false), [setMouseOver]);
 
     useEffect(() => {
         if (!canvasRef.current) {
@@ -39,11 +33,11 @@ const Canvas = (props: CanvasProps) => {
 
         const canvas: HTMLCanvasElement = canvasRef.current;
         canvas.addEventListener('mouseover', onMouseOver);
-        canvas.addEventListener('mousemove', (e) =>  trackCursor(e));
+        canvas.addEventListener('mousemove', trackCursor);
         canvas.addEventListener('mouseleave', onMouseLeave);
         return () => {
             canvas.removeEventListener('mouseover', onMouseOver);
-            canvas.removeEventListener('mousemove', (e) => trackCursor(e));
+            canvas.removeEventListener('mousemove', trackCursor);
             canvas.removeEventListener('mouseleave', onMouseLeave);
         }
     }, [trackCursor, canvasRef, onMouseOver, onMouseLeave])
