@@ -23,12 +23,6 @@ const Canvas = (props: CanvasProps) => {
         setMousePosition(getCoordinates(e, canvasRef));
     }, [canvasRef]);
 
-    useEffect(() => {
-        if (mouseOver) {
-
-        }
-    }, [mouseOver])
-
     const onMouseOver = useCallback(() => setMouseOver(true), [setMouseOver]);
     const onMouseLeave = useCallback(() => setMouseOver(false), [setMouseOver]);
 
