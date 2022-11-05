@@ -6,5 +6,5 @@ export const getCoordinates = (event: MouseEvent, canvasRef: RefObject<HTMLCanva
         return
     }
     const canvas = canvasRef.current;
-    return {x: event.pageX - canvas.offsetLeft, y: event.pageY - canvas.offsetTop}
+    return {x: event.offsetX - canvas.offsetLeft, y: event.offsetY - canvas.offsetTop}
 }

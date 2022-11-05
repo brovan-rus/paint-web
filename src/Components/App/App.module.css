@@ -1,4 +1,12 @@
 .drawingSection {
     display: flex;
+
     gap: 15px;
+}
+
+.container {
+    padding: 30px;
+
+    background: #bdbdbd;
+
 }
