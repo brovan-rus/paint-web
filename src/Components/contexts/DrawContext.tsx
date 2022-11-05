@@ -9,9 +9,10 @@ const DrawContext = createContext <DrawContextType | {}> ({});
 const DrawContextProvider = (props: Props) => {
     const { children } = props;
     const [color, setColor] = useState <string | {}> ('#FF0000');
+    const [activeInstrument, setActiveInstrument] = useState<string | {}>('pencil');
     const [thickness, setThickness] = useState<number>(1);
     return (
-        <DrawContext.Provider value={{color, setColor, thickness, setThickness}}>
+        <DrawContext.Provider value={{color, setColor, thickness, setThickness, activeInstrument, setActiveInstrument}}>
             {children}
         </DrawContext.Provider>
     )

@@ -1,11 +1,10 @@
 .container {
-    display: flex;
+    display: grid;
 
     flex-direction: column;
 
-    gap: 20px;
-
-    padding: 10px;
+    grid-template-rows: repeat(8, min-content);
+    grid-template-columns: repeat(2, min-content);
 }
 
 .title {

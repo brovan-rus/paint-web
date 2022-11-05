@@ -9,7 +9,7 @@ const Slider = () => {
     const {thickness, setThickness} = useContext(DrawContext) as DrawContextType;
     return (
         <div className={styles.container}>
-            <ReactSlider className={styles.slider} defaultValue={5} min={5} max={50} value={thickness} onChange={setThickness}/>
+            <ReactSlider className={styles.slider} defaultValue={1} min={1} max={50} value={thickness} onChange={setThickness}/>
             <p>{thickness}</p>
         </div>
     );

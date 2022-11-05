@@ -12,7 +12,7 @@ const DrawingPanel = () => {
             return;
         }
 
-        context.strokeStyle = color;
+        context.strokeStyle = color as string;
         context.lineJoin = 'round';
         context.lineWidth = thickness;
         context.beginPath();
@@ -22,12 +22,7 @@ const DrawingPanel = () => {
         context.stroke();
     }
 
-    return(
-        <>
-            <Canvas className={styles.canvas} draw={draw} />
-        </>
-
-    )
+    return <Canvas className={styles.canvas} draw={draw} />
 }
 
 export default DrawingPanel;
