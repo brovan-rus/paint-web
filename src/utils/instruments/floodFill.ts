@@ -1,5 +1,6 @@
 import {Color, RGBColor} from "react-color";
 import {Coordinate} from "../../types/Coordinate";
+import _ from 'lodash';
 
 export const hexToRgb = (hexColor: Color | undefined): RGBColor => {
     if (typeof hexColor !== "string") {
@@ -38,13 +39,18 @@ export const floodFill: FloodFill = ({mousePosition, canvas, color}) => {
     if (!mousePosition) {
         return;
     }
+
     const context = canvas.getContext('2d');
     if (!context) {
         return;
     }
+
     const colorLayer = context.getImageData(0, 0, canvas.width, canvas.height);
     const fillColor = hexToRgb(color);
     const startingColor = getStartingColor(colorLayer, mousePosition, canvas);
+    if (_.isEqual(fillColor, startingColor)) {
+        return colorLayer;
+    }
 
     const colorPixel = (pixelPosition: number) => {
         colorLayer.data[pixelPosition] = fillColor.r;
