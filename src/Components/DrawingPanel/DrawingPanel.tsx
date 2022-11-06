@@ -34,7 +34,8 @@ const DrawingPanel = () => {
         }
 
         const colorLayer = context.getImageData(0, 0, canvas.width, canvas.height);
-        console.log(colorLayer);
+
+        // const array = new Uint32Array(context.getImageData(0, 0, canvas.width, canvas.height).data.buffer)
 
         const fillColor = hexToRgb(color);
 
@@ -46,8 +47,6 @@ const DrawingPanel = () => {
             r: colorLayer.data[getPixelPosition(originalMousePosition)],
             g: colorLayer.data[getPixelPosition(originalMousePosition) + 1],
             b: colorLayer.data[getPixelPosition(originalMousePosition) + 2]}
-
-        console.log(startingColor);
 
         const matchStartColor = (pixelPosition: number) => (
             colorLayer.data[pixelPosition] === startingColor.r &&
@@ -63,9 +62,10 @@ const DrawingPanel = () => {
         }
 
         const pixelStack = [[originalMousePosition.x, originalMousePosition.y]];
+        let stackPointer = 1;
 
-        while(pixelStack.length) {
-            const newPosition = pixelStack.pop();
+        while(stackPointer) {
+            const newPosition = pixelStack[--stackPointer];
             if (!newPosition) {
                 return;
             }
@@ -84,7 +84,7 @@ const DrawingPanel = () => {
                 if (x > 0) {
                     if (matchStartColor(pixelPosition - 4)) {
                         if(!reachLeft) {
-                            pixelStack.push([x - 1, y]);
+                            pixelStack[stackPointer++] = [x - 1, y];
                             reachLeft = true
                         } else if (reachLeft) {
                             reachLeft = false;
@@ -95,7 +95,7 @@ const DrawingPanel = () => {
                 if (x < (canvas.width - 1)) {
                     if(matchStartColor(pixelPosition + 4)) {
                         if(!reachRight) {
-                            pixelStack.push([x + 1, y]);
+                            pixelStack[stackPointer++] = [x + 1, y];
                             reachRight = true;
                         } else if (reachRight) {
                             reachRight = false;
