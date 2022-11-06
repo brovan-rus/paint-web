@@ -11,6 +11,6 @@ export type Draw = (props: {
 
 export type Fill = (props: {
     context: CanvasRenderingContext2D,
-    originalMousePosition?: Coordinate,
+    originalMousePosition: Coordinate,
     canvas: HTMLCanvasElement,
 }) => any;
