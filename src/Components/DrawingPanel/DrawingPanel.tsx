@@ -21,9 +21,6 @@ const DrawingPanel = () => {
         context.lineTo(newMousePosition.x, newMousePosition.y);
         context.closePath();
         context.stroke();
-
-        context.fillRect(0, 0, 80, 80);
-
     }
 
     const bucket: Fill = ({canvas,originalMousePosition }) => {
