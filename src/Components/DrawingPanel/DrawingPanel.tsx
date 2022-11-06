@@ -79,7 +79,7 @@ const DrawingPanel = () => {
             y += 1;
             let reachLeft = false;
             let reachRight = false;
-            while(y++ < canvas.height - 1 && matchStartColor(pixelPosition)) {
+            while(y++ < (canvas.height - 1) && matchStartColor(pixelPosition)) {
                 colorPixel(pixelPosition);
                 if (x > 0) {
                     if (matchStartColor(pixelPosition - 4)) {
@@ -92,7 +92,7 @@ const DrawingPanel = () => {
                     }
                 }
 
-                if (x < canvas.width - 1 && matchStartColor(pixelPosition)) {
+                if (x < (canvas.width - 1)) {
                     if(matchStartColor(pixelPosition + 4)) {
                         if(!reachRight) {
                             pixelStack.push([x + 1, y]);
@@ -106,8 +106,6 @@ const DrawingPanel = () => {
             }
         }
         context.putImageData(colorLayer, 0, 0);
-        console.log(colorLayer);
-        console.log(context.getImageData(0,0, canvas.width, canvas.height))
     }
 
     const instrumentCallback: Record<string, any> = {
