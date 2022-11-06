@@ -16,7 +16,7 @@ const Button = ({ children, name, active = false, handleButtonClick }: ButtonPro
 
     return (
         <button onClick={onClick} className={ cn(styles.button, active && styles.active) }>
-            <img alt={name} className={styles.image} src={instrumentIcons[name]} />
+            <img className={styles.image} src={instrumentIcons[name]} />
         </button>
     )
 }

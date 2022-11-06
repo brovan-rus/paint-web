@@ -8,3 +8,9 @@ export type Draw = (props: {
     newMousePosition?: Coordinate
     isPainting?: boolean,
 }) => any ;
+
+export type Fill = (props: {
+    context: CanvasRenderingContext2D,
+    originalMousePosition: Coordinate,
+    canvas: HTMLCanvasElement,
+}) => any;

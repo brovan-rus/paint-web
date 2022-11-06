@@ -2,6 +2,7 @@ import {useRef, useEffect, useState, useCallback} from "react";
 import {Draw} from "../types/Canvas";
 import {Coordinate} from "../types/Coordinate";
 import {getCoordinates} from "../utils/CanvasUtils";
+import {INSTRUMENTS} from "../utils/constants/instruments";
 
 function resizeCanvasToDisplaySize(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
 
@@ -62,9 +63,37 @@ const useCanvas = (draw: Draw, _preDraw: Draw = preDraw, _postDraw: Draw = postD
         [isPainting, mousePosition, draw]
     );
 
+    const fill = (event: MouseEvent) => {
+        if (!canvasRef.current ) {
+            return
+        }
+        const mousePosition = getCoordinates(event, canvasRef);
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        const context = canvas.getContext('2d');
+        if (!context) {
+            return;
+        }
+        draw({context, canvas, originalMousePosition: mousePosition});
+    };
+
+    // const fill = useCallback((event: MouseEvent) => {
+    //     if (!canvasRef.current ) {
+    //         return
+    //     }
+    //     const mousePosition = getCoordinates(event, canvasRef);
+    //     const canvas: HTMLCanvasElement = canvasRef.current;
+    //     const context = canvas.getContext('2d');
+    //     if (!context) {
+    //         return;
+    //     }
+    //     draw({context, canvas, originalMousePosition: mousePosition});
+    // }, [mousePosition, draw])
+
     const exitPaint = useCallback(() => {
         setIsPainting(false);
     }, []);
+
+
 
     useEffect(() => {
         if (!canvasRef.current) {
@@ -75,11 +104,19 @@ const useCanvas = (draw: Draw, _preDraw: Draw = preDraw, _postDraw: Draw = postD
         if (!context) {
             return;
         }
-        canvas.addEventListener('mousemove', paint);
+        if (draw.name !== INSTRUMENTS.BUCKET) {
+            canvas.addEventListener('mousemove', paint);
+        } else {
+            canvas.addEventListener('click', fill);
+        }
         return () => {
-            canvas.removeEventListener('mousemove', paint);
+            if (draw.name !== INSTRUMENTS.BUCKET) {
+                canvas.removeEventListener('mousemove', paint);
+            } else {
+                canvas.removeEventListener('click', fill);
+            }
         };
-    }, [paint]);
+    }, [paint, fill]);
 
     useEffect(() => {
         if (!canvasRef.current) {
@@ -93,6 +130,7 @@ const useCanvas = (draw: Draw, _preDraw: Draw = preDraw, _postDraw: Draw = postD
             canvas.removeEventListener('mouseleave', exitPaint);
         };
     }, [exitPaint]);
+
 
     useEffect(() => {
         if (!canvasRef.current) {
